@@ -1,7 +1,7 @@
 # work.py  
   
 import streamlit as st  
-from svc_db import count_records, fetch_records, update_field
+from svc_db import count_records, fetch_work_records, update_field
 from svc_blob import fetch_json
 from streamlit_helper import plot_curves
 from curve_helper import CurveHelper
@@ -80,8 +80,8 @@ def work_page(table_name):
     st.subheader(f"Work Queue Color Curves from {table_name}")
     records_per_page = st.sidebar.number_input("Records per page", min_value=1, max_value=100, value=10)
     
-    # Count total records
-    total_records = count_records(table_name)
+    # Count total records for work queue
+    total_records = count_records(table_name, condition = "name LIKE '%,%'")
     total_pages = (total_records // records_per_page) + (1 if total_records % records_per_page > 0 else 0)
     
     # Pagination logic
@@ -101,7 +101,7 @@ def work_page(table_name):
     offset = (st.session_state.page - 1) * records_per_page
     
     # Assuming you have a function to fetch records with limit and offset
-    records = fetch_records(table_name=table_name, limit=records_per_page, offset=offset)
+    records = fetch_work_records(table_name=table_name, limit=records_per_page, offset=offset)
 
     # Display records
     if records:

@@ -34,4 +34,4 @@ page = st.sidebar.selectbox("Select a page", list(pages.keys()))
   
 # Load the selected page  
 with open(pages[page]) as f:  
-    exec(f.read())  
+    exec(f.read())

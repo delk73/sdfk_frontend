@@ -81,7 +81,7 @@ def read_page(table_name):
     records_per_page = st.sidebar.number_input("Records per page", min_value=1, max_value=100, value=10)
     
     # Count total records
-    total_records = count_records(table_name)
+    total_records = count_records(table_name, condition = "name NOT LIKE '%,%'")
     total_pages = (total_records // records_per_page) + (1 if total_records % records_per_page > 0 else 0)
     
     # Pagination logic
